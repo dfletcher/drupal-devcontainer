@@ -87,19 +87,19 @@ chmod -R ug+w ${DOCROOT}/sites/default/
 chown -R mysql:${GRPID} /var/lib/mysql/
 chmod -R ug+w /var/lib/mysql/
 
-for x in ${MODULES_ENABLED[@]}; do
+for x in ${DEV_MODULES_ENABLED[@]}; do
   ${DRUSH} pm-enable "${x}"
 done
 
-for x in ${MODULES_DISABLED[@]}; do
+for x in ${DEV_MODULES_ENABLED[@]}; do
   ${DRUSH} pm-uninstall "${x}"
 done
 
-for x in ${THEMES_ENABLED[@]}; do
+for x in ${DEV_MODULES_ENABLED[@]}; do
   ${DRUSH} pm-enable "${x}"
 done
 
-for x in ${THEMES_DISABLED[@]}; do
+for x in ${DEV_THEMES_DISABLED[@]}; do
   ${DRUSH} pm-uninstall "${x}"
 done
 
