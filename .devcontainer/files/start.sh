@@ -1,6 +1,8 @@
 #!/bin/bash
 
-export SITE_NAME="$1"
+. /workspace/.env
+
+export SITE_NAME="${SITE_NAME:-Drupal Devcontainer}"
 export BASEHTML="/var/www/html"
 export DOCROOT="/var/www/html/web"
 export GRPID=$(stat -c "%g" /var/lib/mysql/)
@@ -27,7 +29,7 @@ echo "**** composer install ****"
 if [ ! -f ${DOCROOT}/index.php ]; then
   echo "**** No Drupal found, setting up directories. ****"
   #rm -rf /var/www/drupal
-  composer create-project --no-interaction
+  composer create-project --no-interaction 2>&1 | tee /tmp/composer-create-project.log
   chmod a+w ${DOCROOT}/sites/default;
   mkdir ${DOCROOT}/sites/default/files;
   wget "http://www.adminer.org/latest.php" -O ${DOCROOT}/adminer.php
@@ -35,7 +37,7 @@ if [ ! -f ${DOCROOT}/index.php ]; then
   chmod -R ug+w ${DOCROOT}
 else
   echo "**** ${DOCROOT}/index.php found. ****"
-  composer install --no-interaction
+  composer install --no-interaction | tee /tmp/composer-install.log
 fi
 
 # Setup Drupal if services.yml or settings.php is missing

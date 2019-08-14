@@ -3,20 +3,20 @@ services:
   drupal:
     stdin_open: true
     tty: true
-    image: davefletcher/drupal-devcontainer
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
+    #image: davefletcher/drupal-devcontainer
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     ports:
       - 80:80
     volumes:
-      - ../:/workspace
-      - ../.base/features:/var/www/html/web/modules/custom_base_features
-      - ../.base/modules:/var/www/html/web/modules/custom_base
-      - ../.base/themes:/var/www/html/web/themes/custom_base_themes
-      - ../features:/var/www/html/web/modules/custom_features
-      - ../modules:/var/www/html/web/modules/custom
-      - ../themes:/var/www/html/web/themes/custom_themes
+      - ${PWD}:/workspace
+      - ${PWD}/.base/features:/var/www/html/web/modules/custom_base_features
+      - ${PWD}/.base/modules:/var/www/html/web/modules/custom_base
+      - ${PWD}/.base/themes:/var/www/html/web/themes/custom_base_themes
+      - ${PWD}/features:/var/www/html/web/modules/custom_features
+      - ${PWD}/modules:/var/www/html/web/modules/custom
+      - ${PWD}/themes:/var/www/html/web/themes/custom_themes
       - ${PWD}/composer.json:/var/www/html/composer.json
     restart: always
 

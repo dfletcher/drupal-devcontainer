@@ -59,4 +59,4 @@ RUN mkdir -p /var/run/mysqld; \
 
 WORKDIR /workspace
 EXPOSE 22 80 3306 9000
-CMD ["/bin/bash", "/start.sh"]
+#CMD ["/bin/bash", "/start.sh"]
