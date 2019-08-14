@@ -2,15 +2,21 @@
 
 . /workspace/.env
 
-export SITE_NAME="${SITE_NAME:-Drupal Devcontainer}"
-export BASEHTML="/var/www/html"
-export DOCROOT="/var/www/html/web"
-export GRPID=$(stat -c "%g" /var/lib/mysql/)
-export DRUSH="/.composer/vendor/drush/drush/drush"
-export LOCAL_IP=$(hostname -I| awk '{print $1}')
-export HOSTIP=$(/sbin/ip route | awk '/default/ { print $3 }')
+BASEHTML="/var/www/html"
+DOCROOT="/var/www/html/web"
+DRUSH="/.composer/vendor/drush/drush/drush"
+GRPID=$(stat -c "%g" /var/lib/mysql/)
+LOCAL_IP=$(hostname -I| awk '{print $1}')
+HOSTIP=$(/sbin/ip route | awk '/default/ { print $3 }')
 echo "${HOSTIP} dockerhost" >> /etc/hosts
 echo "Started Container: $(date)"
+
+DEV_MODULES_ENABLED+=($(ls /workspace/modules))
+DEV_MODULES_ENABLED+=($(ls /workspace/.base/modules))
+DEV_MODULES_ENABLED+=($(ls /workspace/features))
+DEV_MODULES_ENABLED+=($(ls /workspace/.base/features))
+DEV_THEMES_ENABLED+=($(ls /workspace/themes))
+DEV_THEMES_ENABLED+=($(ls /workspace/.base/themes))
 
 # Create a basic mysql install
 if [ ! -d /var/lib/mysql/mysql ]; then
@@ -80,6 +86,23 @@ chown -R www-data:${GRPID} ${DOCROOT}/sites/default/
 chmod -R ug+w ${DOCROOT}/sites/default/
 chown -R mysql:${GRPID} /var/lib/mysql/
 chmod -R ug+w /var/lib/mysql/
+
+for x in ${MODULES_ENABLED[@]}; do
+  ${DRUSH} pm-enable "${x}"
+done
+
+for x in ${MODULES_DISABLED[@]}; do
+  ${DRUSH} pm-uninstall "${x}"
+done
+
+for x in ${THEMES_ENABLED[@]}; do
+  ${DRUSH} pm-enable "${x}"
+done
+
+for x in ${THEMES_DISABLED[@]}; do
+  ${DRUSH} pm-uninstall "${x}"
+done
+
 find -type d -exec chmod +xr {} \;
 (sleep 3; drush --root=${DOCROOT}/ cache-rebuild 2>/dev/null) &
 
