@@ -4,7 +4,7 @@
 
 BASEHTML="/var/www/html"
 DOCROOT="/var/www/html/web"
-DRUSH="/.composer/vendor/drush/drush/drush"
+DRUSH="/.composer/vendor/drush/drush/drush -y"
 GRPID=$(stat -c "%g" /var/lib/mysql/)
 LOCAL_IP=$(hostname -I| awk '{print $1}')
 HOSTIP=$(/sbin/ip route | awk '/default/ { print $3 }')
@@ -69,7 +69,7 @@ if ( ! grep -q 'database.*=>.*drupal' ${DOCROOT}/sites/default/settings.php 2>/d
         "CREATE DATABASE drupal; GRANT ALL PRIVILEGES ON drupal.* TO 'drupal'@'%' IDENTIFIED BY '$DRUPAL_PASSWORD'; FLUSH PRIVILEGES;" 2>/dev/null
   cd ${DOCROOT}
   cp sites/default/default.settings.php sites/default/settings.php
-  ${DRUSH} site-install standard -y --account-name=admin --account-pass=admin \
+  ${DRUSH} site-install standard --account-name=admin --account-pass=admin \
            --db-url="mysql://drupal:${DRUPAL_PASSWORD}@localhost:3306/drupal" \
            --site-name="${SITE_NAME}" | grep -v 'continue?' 2>/dev/null
 else
