@@ -3,10 +3,10 @@ services:
   drupal:
     stdin_open: true
     tty: true
-    image: drupal
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: davefletcher/drupal-devcontainer
+    #build:
+    #  context: .
+    #  dockerfile: Dockerfile
     ports:
       - 80:80
     volumes:
