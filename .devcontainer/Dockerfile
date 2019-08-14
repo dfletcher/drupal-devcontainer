@@ -35,16 +35,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
   && php --version; composer --version; drupal --version; drush --version
 
 # Install supervisor
-COPY ./files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./files/start.sh /start.sh
-COPY ./files/foreground.sh /etc/apache2/foreground.sh
-COPY ./files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
-COPY ./files/load.environment.php /var/www/html/load.environment.php
+COPY ./.devcontainer/files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./.devcontainer/files/start.sh /start.sh
+COPY ./.devcontainer/files/foreground.sh /etc/apache2/foreground.sh
+COPY ./.devcontainer/files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
+COPY ./.devcontainer/files/load.environment.php /var/www/html/load.environment.php
 
 # Apache & Xdebug
 RUN rm /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/*
-ADD ./files/000-default.conf /etc/apache2/sites-available/000-default.conf
-ADD ./files/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+ADD ./.devcontainer/files/000-default.conf /etc/apache2/sites-available/000-default.conf
+ADD ./.devcontainer/files/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
 RUN a2ensite 000-default ; a2enmod rewrite vhost_alias
 
 # Drupal new version, clean cache
