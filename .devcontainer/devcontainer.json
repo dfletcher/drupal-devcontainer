@@ -1,0 +1,10 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details or
+// https://aka.ms/vscode-dev-containers/definitions for sample configurations.
+{
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "drupal",
+	"workspaceFolder": "/workspace",
+	"extensions": [],
+    "postCreateCommand": "/bin/bash /start.sh ${SITE_NAME}",
+	//"runArgs": ["--user=root", "--privileged"],
+}
