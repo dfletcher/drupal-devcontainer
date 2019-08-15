@@ -1,9 +1,10 @@
-
 # Drupal Devcontainer
+
+Full featured, easy to use IDE for Drupal based on VSCode and Docker Desktop.
 
 ##### :warning: Do not clone this repository. Fork it first!
 >
-> **Note:** This repository is designed to be used as the basis of a Drupal website project. Therefore you should fork the repository into your own account, set this repository as "upstream" remote, and commit changes to your own repository. A generator is in the works to make this process easier. If your intention is just to test out this system without creating a new project, then feel free to clone directly. Detailed usage instructions follow. 
+> **Note:** This repository is designed to be used as the basis of a Drupal website project. Therefore you should fork the repository, set this repository as "upstream" remote, and commit changes to your own repository. A generator is in the works to make this process easier. If your intention is to test out this system without creating a new project, then feel free to clone directly. Detailed usage instructions follow. 
 
 ### Workflow-centric development
 
@@ -11,11 +12,11 @@ Project goals include:
 
 - Complete Drupal IDE
 - Primary support for familiar tools: Composer, Drush, Drupal console
-- One touch up development virtual machines
-- Important working directories at root
-- Lightweight repository: Drupal is not installed into your project
+- One touch up development virtual machine
+- Important working directories live in project root
+- Lightweight: Drupal is not installed into repository
 - Extensible... other kinds of Drupal setups are supported with base features, modules, or themes
-- Deployment (planned)
+- Deployment to shared hosts or cloud (planned)
 
 These goals are achieved using [Docker Desktop](https://www.docker.com/products/docker-desktop) and [Microsoft's VSCode](https://code.visualstudio.com/). The development virtual machine Docker code is based on [Ricardo Amaro's drupal8-docker-app](https://github.com/ricardoamaro/drupal8-docker-app) but the stack is subject to change.
 
@@ -61,7 +62,8 @@ Don't see a workflow that is important to you? Pull requests and discussion is w
 
 ### Project setup:
 
-- Fork this project named for new website
+:ballot_box_with_check: Fork this project named for new website
+
 - TODO: instructions for upstream remote
 - Clone your new fork
 - Edit `.env` file `SITE_NAME` and other optional details
@@ -91,7 +93,7 @@ Don't see a workflow that is important to you? Pull requests and discussion is w
     /var/www/html# drush cr
 ```
 
-:ballot_box_with_check: Replace `acmetheme` above with the project name of the theme as given on drupal.org. 
+ :arrow_up: Replace `acmetheme` above with the project name of the theme as given on drupal.org. 
 
 :ballot_box_with_check: Add and commit the changes to `composer.json` into Git with a message about adding a new third party theme.
 
@@ -106,7 +108,7 @@ Don't see a workflow that is important to you? Pull requests and discussion is w
     /var/www/html# drush cr
 ```
 
-*Note*, replace `acmewidget` with the project name of the module as given on drupal.org. 
+ :arrow_up: Replace `acmewidget` with the project name of the module as given on drupal.org. 
 
 Add and commit the changes to `composer.json` into Git with a message about adding a new third party module and the purpose of it.
 
