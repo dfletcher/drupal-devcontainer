@@ -52,9 +52,9 @@ if ( ! grep -q 'database.*=>.*drupal' ${DOCROOT}/sites/default/settings.php 2>/d
   DRUPAL_DB="drupal"
   DEBPASS=$(grep password /etc/mysql/debian.cnf |head -n1|awk '{print $3}')
   ROOT_PASSWORD=`pwgen -c -n -1 12`
-  DRUPAL_PASSWORD=`pwgen -c -n -1 12`
+  MYSQL_PASSWORD=`pwgen -c -n -1 12`
   echo ${ROOT_PASSWORD} > /var/lib/mysql/mysql/mysql-root-pw.txt
-  echo ${DRUPAL_PASSWORD} > /var/lib/mysql/mysql/drupal-db-pw.txt
+  echo ${MYSQL_PASSWORD} > /var/lib/mysql/mysql/drupal-db-pw.txt
   # Wait for mysql
   echo -n "Waiting for mysql "
   while ! mysqladmin status >/dev/null 2>&1;
@@ -66,16 +66,16 @@ if ( ! grep -q 'database.*=>.*drupal' ${DOCROOT}/sites/default/settings.php 2>/d
   mysql -uroot -p${ROOT_PASSWORD} -e \
         "GRANT ALL PRIVILEGES ON *.* TO 'debian-sys-maint'@'localhost' IDENTIFIED BY '$DEBPASS';" 2>/dev/null
   mysql -uroot -p${ROOT_PASSWORD} -e \
-        "CREATE DATABASE drupal; GRANT ALL PRIVILEGES ON drupal.* TO 'drupal'@'%' IDENTIFIED BY '$DRUPAL_PASSWORD'; FLUSH PRIVILEGES;" 2>/dev/null
+        "CREATE DATABASE drupal; GRANT ALL PRIVILEGES ON drupal.* TO 'drupal'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;" 2>/dev/null
   cd ${DOCROOT}
   cp sites/default/default.settings.php sites/default/settings.php
-  ${DRUSH} site-install standard --account-name=admin --account-pass=admin \
-           --db-url="mysql://drupal:${DRUPAL_PASSWORD}@localhost:3306/drupal" \
+  ${DRUSH} site-install standard "--account-name=${DEV_DRUPAL_ADMIN_USER}" "--account-pass=${DEV_DRUPAL_ADMIN_PASSWORD}" \
+           --db-url="mysql://drupal:${MYSQL_PASSWORD}@localhost:3306/drupal" \
            --site-name="${SITE_NAME}" | grep -v 'continue?' 2>/dev/null
 else
   echo "**** ${DOCROOT}/sites/default/settings.php database found ****"
   ROOT_PASSWORD=$(cat /var/lib/mysql/mysql/mysql-root-pw.txt)
-  DRUPAL_PASSWORD=$(cat /var/lib/mysql/mysql/drupal-db-pw.txt)
+  MYSQL_PASSWORD=$(cat /var/lib/mysql/mysql/drupal-db-pw.txt)
 fi
 
 # Change root password
@@ -114,7 +114,7 @@ find -type d -exec chmod +xr {} \;
 # echo
 # echo "    DRUPAL:  http://${LOCAL_IP}              with user/pass: admin/admin"
 # echo
-# echo "    MYSQL :  http://${LOCAL_IP}/adminer.php  drupal/${DRUPAL_PASSWORD} or root/${ROOT_PASSWORD}"
+# echo "    MYSQL :  http://${LOCAL_IP}/adminer.php  drupal/${MYSQL_PASSWORD} or root/${ROOT_PASSWORD}"
 # echo "    SSH   :  ssh root@${LOCAL_IP}            with user/pass: root/${ROOT_PASSWORD}"
 # echo
 # echo "  Please report any issues to https://github.com/ricardoamaro/drupal8-docker-app"
