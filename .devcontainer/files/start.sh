@@ -103,8 +103,8 @@ for x in ${DEV_THEMES_DISABLED[@]}; do
   ${DRUSH} theme-disable "${x}"
 done
 
-drush config-set system.theme default "${DEV_PUBLIC_THEME}"
-drush config-set system.theme admin "${DEV_ADMIN_THEME}"
+${DRUSH} config-set system.theme default "${DEV_PUBLIC_THEME}"
+${DRUSH} config-set system.theme admin "${DEV_ADMIN_THEME}"
 
 find -type d -exec chmod +xr {} \;
 (sleep 3; drush --root=${DOCROOT}/ cache-rebuild 2>/dev/null) &

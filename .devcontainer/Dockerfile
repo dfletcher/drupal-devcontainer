@@ -40,6 +40,9 @@ COPY ./.devcontainer/files/foreground.sh /etc/apache2/foreground.sh
 COPY ./.devcontainer/files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
 COPY ./.devcontainer/files/load.environment.php /var/www/html/load.environment.php
 
+#RUN echo "supervisord -c /etc/supervisor/conf.d/supervisord.conf -l /tmp/supervisord.log" >> /etc/profile
+COPY ./.devcontainer/files/start.sh /start.sh
+
 # Apache & Xdebug
 RUN rm /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/*
 ADD ./.devcontainer/files/000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -58,3 +61,4 @@ RUN mkdir -p /var/run/mysqld; \
 
 WORKDIR /workspace
 EXPOSE 22 80 3306 9000
+CMD ["/bin/bash", "/start.sh"]
