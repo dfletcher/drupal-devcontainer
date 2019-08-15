@@ -91,11 +91,11 @@ for x in ${DEV_MODULES_ENABLED[@]}; do
   ${DRUSH} pm-enable "${x}"
 done
 
-for x in ${DEV_MODULES_ENABLED[@]}; do
+for x in ${DEV_MODULES_DISABLED[@]}; do
   ${DRUSH} pm-uninstall "${x}"
 done
 
-for x in ${DEV_MODULES_ENABLED[@]}; do
+for x in ${DEV_THEMES_ENABLED[@]}; do
   ${DRUSH} pm-enable "${x}"
 done
 
