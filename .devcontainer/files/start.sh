@@ -11,12 +11,12 @@ HOSTIP=$(/sbin/ip route | awk '/default/ { print $3 }')
 echo "${HOSTIP} dockerhost" >> /etc/hosts
 echo "Started Container: $(date)"
 
-DEV_MODULES_ENABLED+=($(ls /workspace/modules))
-DEV_MODULES_ENABLED+=($(ls /workspace/.base/modules))
-DEV_MODULES_ENABLED+=($(ls /workspace/features))
-DEV_MODULES_ENABLED+=($(ls /workspace/.base/features))
-DEV_THEMES_ENABLED+=($(ls /workspace/themes))
-DEV_THEMES_ENABLED+=($(ls /workspace/.base/themes))
+DEV_MODULES_ENABLED=("${DEV_MODULES_ENABLED[@]}" $(ls /workspace/modules))
+DEV_MODULES_ENABLED=("${DEV_MODULES_ENABLED[@]}" $(ls /workspace/.base/modules))
+DEV_MODULES_ENABLED=("${DEV_MODULES_ENABLED[@]}" $(ls /workspace/features))
+DEV_MODULES_ENABLED=("${DEV_MODULES_ENABLED[@]}" $(ls /workspace/.base/features))
+DEV_THEMES_ENABLED=("${DEV_THEMES_ENABLED[@]}" $(ls /workspace/themes))
+DEV_THEMES_ENABLED=("${DEV_THEMES_ENABLED[@]}" $(ls /workspace/.base/themes))
 
 # Create a basic mysql install
 if [ ! -d /var/lib/mysql/mysql ]; then
