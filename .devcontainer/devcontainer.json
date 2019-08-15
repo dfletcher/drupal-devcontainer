@@ -5,6 +5,6 @@
 	"service": "drupal",
 	"workspaceFolder": "/workspace",
 	"extensions": [],
-    "postCreateCommand": "/bin/bash /start.sh ${SITE_NAME}",
+    "postCreateCommand": "/bin/bash /workspace/.devcontainer/files/start.sh ${SITE_NAME}",
 	//"runArgs": ["--user=root", "--privileged"],
 }

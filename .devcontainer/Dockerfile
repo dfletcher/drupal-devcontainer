@@ -36,7 +36,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 # Install supervisor
 COPY ./.devcontainer/files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY ./.devcontainer/files/start.sh /start.sh
 COPY ./.devcontainer/files/foreground.sh /etc/apache2/foreground.sh
 COPY ./.devcontainer/files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
 COPY ./.devcontainer/files/load.environment.php /var/www/html/load.environment.php
@@ -53,10 +52,9 @@ ADD https://updates.drupal.org/release-history/drupal/8.x /tmp/latest.xml
 # Set some permissions
 RUN mkdir -p /var/run/mysqld; \
     chown mysql:mysql /var/run/mysqld; \
-    chmod 755 /start.sh /etc/apache2/foreground.sh; \
+    chmod 755 /etc/apache2/foreground.sh; \
     mkdir /workspace; \
     ln -s /var/www/html /workspace/html
 
 WORKDIR /workspace
 EXPOSE 22 80 3306 9000
-#CMD ["/bin/bash", "/start.sh"]

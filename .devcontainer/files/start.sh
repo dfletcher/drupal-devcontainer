@@ -96,11 +96,11 @@ for x in ${DEV_MODULES_DISABLED[@]}; do
 done
 
 for x in ${DEV_THEMES_ENABLED[@]}; do
-  ${DRUSH} pm-enable "${x}"
+  drush theme-enable "${x}"
 done
 
 for x in ${DEV_THEMES_DISABLED[@]}; do
-  ${DRUSH} pm-uninstall "${x}"
+  ${DRUSH} theme-disable "${x}"
 done
 
 drush config-set system.theme default "${DEV_PUBLIC_THEME}"
