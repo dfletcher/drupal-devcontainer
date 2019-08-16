@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysql -uroot -p`cat /var/lib/mysql/mysql/mysql-root-pw.txt` -Ddrupal

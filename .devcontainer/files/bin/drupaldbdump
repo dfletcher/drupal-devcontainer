@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mysqldump -uroot -p`cat /var/lib/mysql/mysql/mysql-root-pw.txt` drupal

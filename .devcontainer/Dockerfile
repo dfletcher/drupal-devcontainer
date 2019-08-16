@@ -40,8 +40,17 @@ COPY ./.devcontainer/files/foreground.sh /etc/apache2/foreground.sh
 COPY ./.devcontainer/files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
 COPY ./.devcontainer/files/load.environment.php /var/www/html/load.environment.php
 
-#RUN echo "supervisord -c /etc/supervisor/conf.d/supervisord.conf -l /tmp/supervisord.log" >> /etc/profile
+# Copy startup script
 COPY ./.devcontainer/files/start.sh /start.sh
+
+# Copy scripts
+COPY ./.devcontainer/files/bin/drupaldb /usr/local/bin/drupaldb
+COPY ./.devcontainer/files/bin/drupaldbdump /usr/local/bin/drupaldbdump
+COPY ./.devcontainer/files/bin/startsupervisor.sh /usr/local/bin/startsupervisor.sh
+
+RUN chmod +x /usr/local/bin/drupaldb; \
+    chmod +x /usr/local/bin/drupaldbdump; \
+    chmod +x /usr/local/bin/startsupervisor.sh
 
 # Apache & Xdebug
 RUN rm /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/*
@@ -59,6 +68,11 @@ RUN mkdir -p /var/run/mysqld; \
     mkdir /workspace; \
     ln -s /var/www/html /workspace/html
 
+# Make sure we don't have any Apache PID in the image else
+# it crashes with segfault.
+RUN rm -f /var/run/apache2/apache2.pid
+
 WORKDIR /workspace
 EXPOSE 22 80 3306 9000
-CMD ["/bin/bash", "/start.sh"]
+
+CMD ["/bin/bash", "/usr/local/bin/startsupervisor.sh"]
