@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. /workspace/.env
+. /workspace/ENV
 
 BASEHTML="/var/www/html"
 DOCROOT="/var/www/html/web"
