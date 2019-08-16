@@ -105,6 +105,7 @@ done
 
 ${DRUSH} config-set system.theme default "${DEV_PUBLIC_THEME}"
 ${DRUSH} config-set system.theme admin "${DEV_ADMIN_THEME}"
+${DRUSH} features-import-all
 
 find -type d -exec chmod +xr {} \;
 (sleep 3; drush --root=${DOCROOT}/ cache-rebuild 2>/dev/null) &
