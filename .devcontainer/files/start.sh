@@ -95,6 +95,9 @@ mysql -uroot -p${ROOT_PASSWORD} -e \
 cd ${DOCROOT}
 cp sites/default/default.settings.php sites/default/settings.php
 
+# Drush crashes w segfault if xdebug is on. Disable for cli.
+rm -f /etc/php/7.2/cli/conf.d/20-xdebug.ini
+
 # Site install.
 if ! logrun "Running \`drush site-install\`." \
      "drush-site-install.log" \

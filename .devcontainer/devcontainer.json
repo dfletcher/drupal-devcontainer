@@ -4,6 +4,14 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "drupal",
 	"workspaceFolder": "/workspace",
-	"extensions": [],
-    "postCreateCommand": "/bin/bash /workspace/.devcontainer/files/start.sh",
+	"extensions": [
+		"felixfbecker.php-debug",
+		"felixfbecker.php-intellisense",
+		"shd101wyy.markdown-preview-enhanced",
+		"auchenberg.vscode-browser-preview"
+	],
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"postCreateCommand": "/bin/bash /workspace/.devcontainer/files/start.sh",
 }

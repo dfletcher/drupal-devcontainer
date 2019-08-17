@@ -9,6 +9,7 @@ services:
     #  dockerfile: .devcontainer/Dockerfile
     ports:
       - 80:80
+      - 9000:9000
     volumes:
       - ${PWD}:/workspace
       - ${PWD}/.base/features:/var/www/html/web/modules/custom_base_features
