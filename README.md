@@ -1,6 +1,6 @@
 # Drupal Devcontainer
 
-Full featured IDE for Drupal based on VSCode and Docker Desktop. Drupal and all system deps in a development container, project management tools, text editor, shell, version control, and preview all in one integrated environment.
+Full featured IDE for Drupal based on VSCode and Docker Desktop. Drupal and all system deps in a development container, project management tools, text editor, debugger, shell, version control, and preview all in one integrated environment.
 
 ![Drupal Devcontainer in action](https://i.imgur.com/5l0Fbgq.png)
 
@@ -17,13 +17,15 @@ Full featured IDE for Drupal based on VSCode and Docker Desktop. Drupal and all 
 1. [Supported workflows](#supported-workflows)
 
 ### Requirements
-1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop). Note that Docker Desktop is not supported in all versions of Windows unfortunately.
-1. Install [VSCode](https://code.visualstudio.com/).
-1. From the VSCode extension manager, install the [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
-1. (Optional) Install the [Browser Preview](https://marketplace.visualstudio.com/items?itemName=auchenberg.vscode-browser-preview) extension to open browser windows inside VSCode.
-Additionally, you may need to configure the disk your project directory lives on as a Docker Desktop shared drive. If some shell code appears when you enable a share, it is important to run that code in a terminal.
+:ballot_box_with_check:  Install [Docker Desktop](https://www.docker.com/products/docker-desktop). Note that Docker Desktop is not supported in all versions of Windows unfortunately.
 
-This software is brand new and is currently only tested in Windows 10 Pro. It should run on MacOS but this is untested. Feedback welcome via issue queue or pull request.
+:ballot_box_with_check: Install [VSCode](https://code.visualstudio.com/).
+
+:ballot_box_with_check: From the VSCode extension manager, install the [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
+
+:ballot_box_with_check: Additionally, you may need to configure the disk your project directory lives on as a Docker Desktop shared drive. If some shell (eg PowerShell) code appears when you enable a share, it is important to run that code in a terminal.
+
+:warning: This software is brand new and is currently only tested in Windows 10 Pro. It should run on MacOS but this is untested. Feedback welcome via issue queue or pull request.
 
 ### Features
 
@@ -49,13 +51,13 @@ See [Directory layout](#directory-layout) for details on the repository files an
 
 `./features` Configuration via Features that should be applied to all environments (dev, qa, staging, production etc). All feature modules in this directory will be automatically enabled on container build. When generating features from development environment, specify output directory `/var/www/html/web/modules/custom_features`.
 
-`./ENV` Environment variables file.
+`./ENV` Environment variables file. In here you can specify your site name, local admin credentials, modules that should be enabled at installation time, etc.
 
-`./.composer.json` Project composer file.
+`./.composer.json` Project composer file. This repository contains a default composer.json. It can be extended / modified for your website project and through [forks](#create-an-extended-drupal-devcontainer-for-reuse) of this project.
 
 `./.base` This directory can contain modules, themes, features that are not the primary target of the current website. It is meant to create reusable distributions based on forks of Drupal Devcontainer. TODO: examples e.g. commerce focused setup.
 
-`./.devcontainer/` Contains VSCode development files. Only needs changes if you intend to modify the development stack (Ubuntu, Apache, PHP, MariaDB, Memcached).
+`./.devcontainer, ./.vscode` These contain VSCode development files. Only needs changes if you intend to modify the development stack (Ubuntu, Apache, PHP, MariaDB, Memcached) or installation procedures.
 
 ### Supported workflows:
  - [Start a project](#start-a-project)
@@ -71,18 +73,18 @@ See [Directory layout](#directory-layout) for details on the repository files an
  - [Create an extended Drupal Devcontainer for reuse](#create-an-extended-drupal-devcontainer-for-reuse)
 
 Planned but not yet available:
+ - Auto-import project SQL file into development VM database
+ - Automatically generate projects with a generator tool
+ - Unit, functional, system tests
  - [Deploy to remote server](#deploy-to-remote-server)
- - Import SQL into development VM database
- - Automatically generate a project with a generator tool
-
 
 Don't see a workflow that is important to you? Pull requests and discussion is welcome!
 
 ### Start a project:
 
-:ballot_box_with_check: [Fork this project](https://github.com/dfletcher/drupal-devcontainer) named for new website. Private websites should use a private fork.
+:ballot_box_with_check: [Fork this project](https://github.com/dfletcher/drupal-devcontainer) named for new website. Private websites should use a private fork or otherwise privately hosted repository.
 
-:ballot_box_with_check: Clone your new git fork.
+:ballot_box_with_check: Clone your new fork.
 
 :ballot_box_with_check: Add this repository as "upstream" remote. 
 
@@ -169,7 +171,7 @@ This `mysqldump` shortcut script with user credentials and database name lives i
 
 ### Deploy to remote server
 
-**Under construction.** This is a complex topic that will receive more attention when the basics are more nailed down and after we have a generator for creating new projects. It will certainly involve external tools not currently mentioned in this document. The basic idea will be the ability to quickly deploy Drupal Devcontainer projects and all deps to external shared or dedicated hosts.
+**Under construction.** This is a complex topic that will receive more attention when the basics are more nailed down. It will certainly involve external tools not currently mentioned in this document. The basic idea will be the ability to quickly deploy Drupal Devcontainer projects and all deps to external shared or dedicated hosts.
 
 ### Update modules
 
