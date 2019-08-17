@@ -2,7 +2,7 @@
 
 Full featured IDE for Drupal based on VSCode and Docker Desktop. Drupal and all system deps in a development container, project management tools, text editor, shell, version control, and preview all in one integrated environment.
 
-![Drupal Devcontainer in action](https://i.imgur.com/pDixfVb.png)
+![Drupal Devcontainer in action](https://i.imgur.com/5l0Fbgq.png)
 
 
 ##### :warning: Do not clone this repository. Fork it first!
@@ -94,7 +94,7 @@ Don't see a workflow that is important to you? Pull requests and discussion is w
 
 :ballot_box_with_check: In VSCode, open the cloned folder using the `File -> Open folder...` menu. The following dialog box should appear. Click "Reopen in Container".
 
-![View in action](https://i.imgur.com/gbxhzh4.png)
+![Reopen in container dialog](https://i.imgur.com/gbxhzh4.png)
 
 If this dialog is not open, you can do the same thing under the `F1` menu or the green button lower left of VSCode, select "Remote-Containers: Reopen Folder in container".
 
