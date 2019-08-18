@@ -40,4 +40,4 @@ DEV_THEMES_DISABLED=()
 # Any themes set here must be enabled.
 #
 DEV_PUBLIC_THEME="bartik"
-DEV_ADMIN_THEME="adminimal_theme"
+DEV_ADMIN_THEME="seven"
