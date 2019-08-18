@@ -40,6 +40,7 @@ COPY ./.devcontainer/files/foreground.sh /etc/apache2/foreground.sh
 COPY ./.devcontainer/files/scripts/composer/ScriptHandler.php /var/www/html/scripts/composer/ScriptHandler.php
 COPY ./.devcontainer/files/load.environment.php /var/www/html/load.environment.php
 COPY ./.devcontainer/files/xdebug.ini /etc/php/7.2/mods-available/xdebug.ini
+COPY ./.devcontainer/files/composer-drupal-core.json /var/www/html/composer-drupal-core.json
 
 # Copy startup script
 COPY ./.devcontainer/files/start.sh /start.sh
