@@ -8,7 +8,7 @@
 #
 # This value appears in the header of your site.
 #
-SITE_NAME="Drupal Devcontainer"
+SITE_NAME="Drupal Devcontainer Commerce"
 
 #
 # Credentials for the development site username and password.
@@ -23,7 +23,7 @@ DEV_DRUPAL_ADMIN_PASSWORD="admin"
 # by listing them in DEV_MODULES_DISABLED.
 #
 DEV_MODULES_ENABLED=(features features_ui admin_toolbar admin_toolbar_tools admin_toolbar_links_access_filter)
-DEV_MODULES_DISABLED=()
+DEV_MODULES_DISABLED=(bartik)
 
 #
 # Themes to enable or disable.
@@ -39,5 +39,5 @@ DEV_THEMES_DISABLED=()
 # Drupal's defaults are "bartik" and "seven", respectively.
 # Any themes set here must be enabled.
 #
-DEV_PUBLIC_THEME="bartik"
+DEV_PUBLIC_THEME="belgrade"
 DEV_ADMIN_THEME="seven"
