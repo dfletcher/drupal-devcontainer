@@ -136,14 +136,6 @@ if [[ ! -z "${DEV_THEMES_ENABLED[*]}" ]]; then
   fi
 fi
 
-# Disabled themes
-if [[ ! -z "${DEV_THEMES_DISABLED[*]}" ]]; then
-  if ! logrun "Disable themes: ${DEV_THEMES_DISABLED[*]}." \
-    "drush-theme-disable.log" ${DRUSH} theme-disable ${DEV_THEMES_DISABLED[*]}; then
-    exit $?
-  fi
-fi
-
 # Set the site theme
 if ! logrun "Set primary site theme: ${DEV_PUBLIC_THEME[*]}." \
   "drush-config-set-system-theme-default.log" \
@@ -156,6 +148,14 @@ if ! logrun "Set administration theme: ${DEV_ADMIN_THEME[*]}." \
   "drush-config-set-system-theme-admin.log" \
   ${DRUSH} config-set system.theme admin "${DEV_ADMIN_THEME}"; then
   exit $?
+fi
+
+# Disabled themes
+if [[ ! -z "${DEV_THEMES_DISABLED[*]}" ]]; then
+  if ! logrun "Disable themes: ${DEV_THEMES_DISABLED[*]}." \
+    "drush-theme-uninstall.log" ${DRUSH} theme-uninstall ${DEV_THEMES_DISABLED[*]}; then
+    exit $?
+  fi
 fi
 
 # Import features configuration.
