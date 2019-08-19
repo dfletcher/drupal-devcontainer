@@ -112,6 +112,44 @@ fi
 # Change root password
 echo "root:${ROOT_PASSWORD}" | chpasswd
 
+# Enabled themes
+if [[ ! -z "${DEV_THEMES_ENABLED[*]}" ]]; then
+  for theme in ${DEV_THEMES_ENABLED[*]}; do
+    if ! logrun "Enable theme: ${theme}." \
+      "drush-theme-enable.log" ${DRUSH} theme-enable ${theme}; then
+      exit $?
+    fi
+  done
+fi
+
+# Set the site theme
+if [[ ! -z ${DEV_PUBLIC_THEME} ]]; then
+  if ! logrun "Set primary site theme: ${DEV_PUBLIC_THEME[*]}." \
+    "drush-config-set-system-theme-default.log" \
+    ${DRUSH} config-set system.theme default "${DEV_PUBLIC_THEME}"; then
+    exit $?
+  fi
+fi
+
+# Set the admin theme
+if [[ ! -z ${DEV_ADMIN_THEME} ]]; then
+  if ! logrun "Set administration theme: ${DEV_ADMIN_THEME[*]}." \
+    "drush-config-set-system-theme-admin.log" \
+    ${DRUSH} config-set system.theme admin "${DEV_ADMIN_THEME}"; then
+    exit $?
+  fi
+fi
+
+# Disabled themes
+if [[ ! -z "${DEV_THEMES_DISABLED[*]}" ]]; then
+  for theme in ${DEV_THEMES_DISABLED[*]}; do
+    if ! logrun "Disable theme: ${theme}." \
+      "drush-theme-uninstall.log" ${DRUSH} theme-uninstall ${theme}; then
+      exit $?
+    fi
+  done
+fi
+
 # Enabled modules
 if [[ ! -z "${DEV_MODULES_ENABLED[*]}" ]]; then
   if ! logrun "Enable modules: ${DEV_MODULES_ENABLED[*]}." \
@@ -124,36 +162,6 @@ fi
 if [[ ! -z "${DEV_MODULES_DISABLED[*]}" ]]; then
   if ! logrun "Disable modules: ${DEV_MODULES_DISABLED[*]}." \
     "drush-pm-uninstall.log" ${DRUSH} pm-uninstall ${DEV_MODULES_DISABLED[*]}; then
-    exit $?
-  fi
-fi
-
-# Enabled themes
-if [[ ! -z "${DEV_THEMES_ENABLED[*]}" ]]; then
-  if ! logrun "Enable themes: ${DEV_THEMES_ENABLED[*]}." \
-    "drush-theme-enable.log" ${DRUSH} theme-enable ${DEV_THEMES_ENABLED[*]}; then
-    exit $?
-  fi
-fi
-
-# Set the site theme
-if ! logrun "Set primary site theme: ${DEV_PUBLIC_THEME[*]}." \
-  "drush-config-set-system-theme-default.log" \
-  ${DRUSH} config-set system.theme default "${DEV_PUBLIC_THEME}"; then
-  exit $?
-fi
-
-# Set the admin theme
-if ! logrun "Set administration theme: ${DEV_ADMIN_THEME[*]}." \
-  "drush-config-set-system-theme-admin.log" \
-  ${DRUSH} config-set system.theme admin "${DEV_ADMIN_THEME}"; then
-  exit $?
-fi
-
-# Disabled themes
-if [[ ! -z "${DEV_THEMES_DISABLED[*]}" ]]; then
-  if ! logrun "Disable themes: ${DEV_THEMES_DISABLED[*]}." \
-    "drush-theme-uninstall.log" ${DRUSH} theme-uninstall ${DEV_THEMES_DISABLED[*]}; then
     exit $?
   fi
 fi

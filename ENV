@@ -39,5 +39,7 @@ DEV_THEMES_DISABLED=()
 # Drupal's defaults are "bartik" and "seven", respectively.
 # Any themes set here must be enabled.
 #
-DEV_PUBLIC_THEME="bartik"
-DEV_ADMIN_THEME="seven"
+# Leave blank to use Drupal's default themes.
+#
+DEV_PUBLIC_THEME=""
+DEV_ADMIN_THEME=""
