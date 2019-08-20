@@ -2,6 +2,7 @@
 
 . /workspace/ENV
 
+ENVIRONMENT="dev"
 BASEHTML="/var/www/html"
 DOCROOT="/var/www/html/web"
 DRUSH="/.composer/vendor/drush/drush/drush -y"
@@ -180,7 +181,7 @@ chown -R mysql:${GRPID} /var/lib/mysql/
 chmod -R ug+w /var/lib/mysql/
 
 # User post installation script.
-[[ -f "/workspace/postinstall.sh" ]] && . /workspace/postinstall.sh
+[[ -f "/workspace/postinstall.sh" ]] && . /workspace/postinstall.sh "${ENVIRONMENT}"
 
 # Wait a few then rebuild cache
 sleep 3
