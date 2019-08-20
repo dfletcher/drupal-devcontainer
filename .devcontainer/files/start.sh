@@ -179,6 +179,9 @@ chmod -R ug+w ${DOCROOT}/sites/default/
 chown -R mysql:${GRPID} /var/lib/mysql/
 chmod -R ug+w /var/lib/mysql/
 
+# User post installation script.
+[[ -f "/workspace/postinstall.sh" ]] && . /workspace/postinstall.sh
+
 # Wait a few then rebuild cache
 sleep 3
 if ! logrun "Cache rebuild." \
