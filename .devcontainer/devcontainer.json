@@ -8,7 +8,8 @@
 		"felixfbecker.php-debug",
 		"felixfbecker.php-intellisense",
 		"shd101wyy.markdown-preview-enhanced",
-		"auchenberg.vscode-browser-preview"
+		"auchenberg.vscode-browser-preview",
+		"whatwedo.twig"
 	],
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash"
